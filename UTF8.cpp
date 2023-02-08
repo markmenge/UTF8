@@ -24,6 +24,11 @@ CUTF8App::CUTF8App()
 {
 	// TODO: add construction code here,
 	// Place all significant initialization in InitInstance
+	int rc;
+	rc = SetThreadUILanguage(1252);
+	rc = SetThreadUILanguage(932);
+	rc = SetThreadUILanguage(65001);
+
 }
 
 
@@ -38,9 +43,11 @@ CUTF8App theApp;
 #include <afxwin.h>
 #include <string>
 
-bool SetProcessCodePageToUTF8()
+
+
+bool SetProcessCodePage()
 {
-	char buf[200];
+	int rc;
 
 	LCID lcid = MAKELCID(MAKELANGID(LANG_ENGLISH, SUBLANG_ENGLISH_US), SORT_DEFAULT);
 	if (SetThreadLocale(lcid) == 0) {
@@ -50,14 +57,12 @@ bool SetProcessCodePageToUTF8()
 		AfxMessageBox(errorMessage);
 		return false;
 	}
-	if (SetThreadLocale(CP_UTF8) == 0) {
-		int error = GetLastError();
-		AfxMessageBox(_T("Failed to set process code page to UTF-8 (CP 65001)"));
-		return false;
-	}
-	SetThreadUILanguage(65001);
+
+	rc = SetThreadUILanguage(65001);
+	system("chcp 65001");
+	
 	UINT codePage = GetACP();
-	if (codePage == CP_UTF8) {
+	if (codePage == 65001) {
 		AfxMessageBox(_T("Process code page is set to UTF-8 (CP 65001)"));
 		return true;
 	}
@@ -72,7 +77,7 @@ BOOL CUTF8App::InitInstance()
 	CWinApp::InitInstance();
 	CoInitialize(NULL);
 
-	SetProcessCodePageToUTF8();
+	SetProcessCodePage();
 	InitCommonControls();
 
 	// Create the shell manager, in case the dialog contains
