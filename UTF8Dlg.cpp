@@ -67,37 +67,9 @@ BEGIN_MESSAGE_MAP(CUTF8Dlg, CDialogEx)
 	ON_BN_CLICKED(IDC_BUTTON_GetACP, &CUTF8Dlg::OnBnClickedGetacp)
 END_MESSAGE_MAP()
 
-void ChcpTest()
-{
-	system("chcp 65001");// doesn't work
-	BOOL iRet = SetThreadUILanguage(65001);// doesn't work
-	//iRet = SetThreadLocale( MAKELCID(MAKELANGID(LANG_CHINESE, SUBLANG_CHINESE_SIMPLIFIED), SORT_DEFAULT));
-	iRet = SetConsoleOutputCP(65001); // doesn't work
-	int ACP = GetACP();
-
-	SetThreadLocale(MAKELCID(MAKELANGID(LANG_ENGLISH, SUBLANG_ENGLISH_US), SORT_DEFAULT));
-	SetThreadLocale(CP_UTF8);
-	// your code here
-
-	ACP = GetACP();
-}
-// CUTF8Dlg message handlers
-
 BOOL CUTF8Dlg::OnInitDialog()
 {
 	CDialogEx::OnInitDialog();
-
-	system("chcp 65001");// doesn't work
-	BOOL iRet = SetThreadUILanguage(65001);// doesn't work
-	//iRet = SetThreadLocale( MAKELCID(MAKELANGID(LANG_CHINESE, SUBLANG_CHINESE_SIMPLIFIED), SORT_DEFAULT));
-	iRet = SetConsoleOutputCP(65001); // doesn't work
-	int ACP = GetACP();
-
-		SetThreadLocale(MAKELCID(MAKELANGID(LANG_ENGLISH, SUBLANG_ENGLISH_US), SORT_DEFAULT));
-		SetThreadLocale(CP_UTF8);
-		// your code here
-	
-	ACP = GetACP();
 
 	// IDM_ABOUTBOX must be in the system command range.
 	ASSERT((IDM_ABOUTBOX & 0xFFF0) == IDM_ABOUTBOX);

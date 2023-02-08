@@ -38,12 +38,15 @@ CUTF8App theApp;
 #include <afxwin.h>
 #include <string>
 
-bool SetProcessCodePageToUTF8() {
+bool SetProcessCodePageToUTF8()
+{
+	char buf[200];
+
 	LCID lcid = MAKELCID(MAKELANGID(LANG_ENGLISH, SUBLANG_ENGLISH_US), SORT_DEFAULT);
 	if (SetThreadLocale(lcid) == 0) {
 		DWORD errorCode = GetLastError();
 		CString errorMessage;
-		errorMessage.Format(_T("Failed to set process locale to English (US). Error code: %d"), errorCode);
+		errorMessage.Format("SetThreadLocale(%d) Failed to set process locale to English (US). Error code: %d", lcid, errorCode);
 		AfxMessageBox(errorMessage);
 		return false;
 	}
@@ -52,7 +55,7 @@ bool SetProcessCodePageToUTF8() {
 		AfxMessageBox(_T("Failed to set process code page to UTF-8 (CP 65001)"));
 		return false;
 	}
-
+	SetThreadUILanguage(65001);
 	UINT codePage = GetACP();
 	if (codePage == CP_UTF8) {
 		AfxMessageBox(_T("Process code page is set to UTF-8 (CP 65001)"));
@@ -64,43 +67,13 @@ bool SetProcessCodePageToUTF8() {
 	}
 }
 
-void helloworld()
-{
-	printf("hello world\n");
-}
-// CUTF8App initialization
-
 BOOL CUTF8App::InitInstance()
 {
 	CWinApp::InitInstance();
 	CoInitialize(NULL);
 
 	SetProcessCodePageToUTF8();
-	helloworld();
-	extern void ChcpTest();
-	ChcpTest();
-	{
-		typedef LANGID(WINAPI *FP_SetThreadUILanguage)(LANGID LangId);
-		HMODULE hKernel32 = NULL;
-		FP_SetThreadUILanguage pFn = NULL;
-		hKernel32 = GetModuleHandle("Kernel32.dll");
-		if (hKernel32)
-		{
-			pFn = (FP_SetThreadUILanguage)GetProcAddress(hKernel32, "SetThreadUILanguage");
-			if (pFn)
-			{
-				pFn(65001);
-			}
-		}
-	}
-
 	InitCommonControls();
-
-
-
-
-
-
 
 	// Create the shell manager, in case the dialog contains
 	// any shell tree view or shell list view controls.

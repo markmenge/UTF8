@@ -11,7 +11,7 @@
     </ProjectConfiguration>
   </ItemGroup>
   <PropertyGroup Label="Globals">
-    <ProjectGuid>{E1E87123-E047-4AF3-A9DE-4D0928FFDD08}</ProjectGuid>
+    <ProjectGuid>{4E54CC6D-3FB7-4E58-9F74-DC1EF182CB01}</ProjectGuid>
     <RootNamespace>UTF8</RootNamespace>
     <Keyword>MFCProj</Keyword>
     <WindowsTargetPlatformVersion>10.0.16299.0</WindowsTargetPlatformVersion>
@@ -44,9 +44,13 @@
   <PropertyGroup Label="UserMacros" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <LinkIncremental>true</LinkIncremental>
+    <OutDir>$(SolutionDir)$(Configuration)Manifest\</OutDir>
+    <IntDir>$(Configuration)Manifest\</IntDir>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <LinkIncremental>false</LinkIncremental>
+    <OutDir>$(SolutionDir)$(Configuration)Manifest\</OutDir>
+    <IntDir>$(Configuration)Manifest\</IntDir>
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <ClCompile>
@@ -118,6 +122,9 @@
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="UTF8.rc" />
+  </ItemGroup>
+  <ItemGroup>
+    <Manifest Include="res\UTF8.manifest" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
