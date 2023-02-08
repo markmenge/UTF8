@@ -101,7 +101,6 @@
     </ResourceCompile>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <None Include="ReadMe.txt" />
     <None Include="res\UTF8.ico" />
     <None Include="res\UTF8.rc2" />
   </ItemGroup>
